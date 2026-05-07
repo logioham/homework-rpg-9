@@ -10,13 +10,17 @@ import com.narxoz.rpg.combatant.HeroMemento;
  */
 public class Caretaker {
 
+    private final java.util.Stack<HeroMemento> history = new java.util.Stack<>();
+
     /**
      * Saves a snapshot to the caretaker history.
      *
      * @param memento the snapshot to store
      */
     public void save(HeroMemento memento) {
-        // TODO: push the snapshot onto the history stack.
+        if (memento != null) {
+            history.push(memento);
+        }
     }
 
     /**
@@ -25,8 +29,10 @@ public class Caretaker {
      * @return the latest stored snapshot, or null in the scaffold
      */
     public HeroMemento undo() {
-        // TODO: pop the most recent snapshot from the history stack.
-        return null;
+        if (history.isEmpty()) {
+            return null;
+        }
+        return history.pop();
     }
 
     /**
@@ -35,8 +41,10 @@ public class Caretaker {
      * @return the latest stored snapshot, or null in the scaffold
      */
     public HeroMemento peek() {
-        // TODO: read the top snapshot without exposing its internals.
-        return null;
+        if (history.isEmpty()) {
+            return null;
+        }
+        return history.peek();
     }
 
     /**
@@ -45,7 +53,6 @@ public class Caretaker {
      * @return the number of saved snapshots
      */
     public int size() {
-        // TODO: return the history size.
-        return 0;
+        return history.size();
     }
 }
